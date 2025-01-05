@@ -28,6 +28,8 @@ private :
 	void ApplyPerUnitLoad(void);
 	double ApplyMortalityCharge(void);
 	double ApplyInterest(void);
+
+public :
 	double GetAnnualAccountValue(void);
 	double GetAnnualCashValue(void);
 	double GetAnnualDeathBenefit(void);

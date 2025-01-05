@@ -4,12 +4,14 @@
 #include <map>
 #include "monthly.h"
 #include "yearly.h"
+#include "DataFrame.h"
+#include <math.h>
 
 
 using namespace std;
 
 
-int CalculateValues(double dPremium, double dFace, double dInterestRate, int iAge, string sWhichCompany)
+DataFrame CalculateValues(double dPremium, double dFace, double dInterestRate, int iAge, string sWhichCompany)
 {
     int i = 0;
     int y = 0;
@@ -23,6 +25,7 @@ int CalculateValues(double dPremium, double dFace, double dInterestRate, int iAg
     // This should come from Brain
     string sFilePath = "C:/Users/lanam/source/repos/IllustrationCalculation/IllustrationCalculation/rates/";
     
+    DataFrame df({ "Age", "Accum Value", "Cash Value", "Death Benefit" });
     
     
     // Read the CSV file for company options - add later - read ages from here
@@ -36,10 +39,6 @@ int CalculateValues(double dPremium, double dFace, double dInterestRate, int iAg
     yearly YearlyLoop(iAge, dPremium, sFilePath);
 
 
-//YearlyCashValue = []
-//YearlyAccumValue = []
-//YearlyPremium = []
-//YearlyDeathBenefit = []
 
 
     // Protective	annual charges from illustration per dollar	select	40
@@ -53,33 +52,29 @@ int CalculateValues(double dPremium, double dFace, double dInterestRate, int iAg
     YearlyLoop.SetCompany(sWhichCompany);
     //Yearly loop
     while (y < iDuration)
-    { 
+    {
 
         YearlyLoop.SetupYearValues(y, dInterestRate, dPremium);
         MonthlyLoop.SetMonthForYear(iMode, YearlyLoop.GetPremium(), YearlyLoop.GetPctOfPremiumLoad(), YearlyLoop.GetMonthlyFee(), YearlyLoop.GetPerUnitLoad(),
-            YearlyLoop.GetInterestRate(), YearlyLoop.GetCorridorFactor(), YearlyLoop.GetMortalityCharge(), YearlyLoop.GetSurrenderCharge() );
-        
+            YearlyLoop.GetInterestRate(), YearlyLoop.GetCorridorFactor(), YearlyLoop.GetMortalityCharge(), YearlyLoop.GetSurrenderCharge());
+
 
         while (i < 12)
         {
             MonthlyLoop.MonthlyProcess(i);
-                i++;
+            i++;
         }
 
-# ['Accum Value', 'Cash Value', 'Death Benefit'])
+        df.addRow({ iAge + y, roundToTwoDecimals(MonthlyLoop.GetAnnualAccountValue()), roundToTwoDecimals(MonthlyLoop.GetAnnualCashValue()), roundToTwoDecimals(MonthlyLoop.GetAnnualDeathBenefit()) });
 
-        df = df._append({ 'Age': Age + y, 'Accum Value' : round(MonthlyLoop.GetAnnualAccountValue(),2), 'Cash Value' : round(MonthlyLoop.GetAnnualCashValue(),2), 'Death Benefit' : round(MonthlyLoop.GetAnnualDeathBenefit(),2) }, ignore_index = True)
-
-
-        YearlyAccumValue.append(round(MonthlyLoop.GetAnnualAccountValue(), 2))
-        YearlyCashValue.append(round(MonthlyLoop.GetAnnualCashValue(), 2))
-        YearlyDeathBenefit.append(round(MonthlyLoop.GetAnnualDeathBenefit(), 2))
-        y += 1
-        i = 0
+        y++;
+        i = 0;
 
 
-        return df
-
-
+        return df;
+    }
 
 }
+    double roundToTwoDecimals(double value) {
+        return std::round(value * 100.0) / 100.0;
+    }
