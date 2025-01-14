@@ -92,7 +92,7 @@ int rates::LoadMortChages(string FileName)
     fstream file(FileName);  // Open the CSV file for reading
     if (!file.is_open()) {
         cerr << "Error opening file!" << endl;
-        return;
+        return 1;
     }
 
     string line;
@@ -135,6 +135,8 @@ int rates::LoadMortChages(string FileName)
 
     // Close the file
     file.close();
+
+    return 0;
 
 }
 

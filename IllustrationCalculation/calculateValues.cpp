@@ -6,10 +6,20 @@
 #include "yearly.h"
 #include "DataFrame.h"
 #include <math.h>
-
+#define EXPORTING_DLL 
+#include "IllustrationCalculation.h"
 
 using namespace std;
 
+double roundToTwoDecimals(double);
+DataFrame CalculateValues(double dPremium, double dFace, double dInterestRate, int iAge, string sWhichCompany);
+
+int Calculate(double dPremium, double dFace, double dInterestRate, int iAge, const char * cWhichCompany)
+{
+    string sWhichCompany = cWhichCompany;
+    DataFrame ReturnDF = CalculateValues(dPremium, dFace, dInterestRate, iAge, sWhichCompany);
+    return 1;
+}
 
 DataFrame CalculateValues(double dPremium, double dFace, double dInterestRate, int iAge, string sWhichCompany)
 {
@@ -69,11 +79,9 @@ DataFrame CalculateValues(double dPremium, double dFace, double dInterestRate, i
 
         y++;
         i = 0;
-
-
-        return df;
     }
 
+    return df;
 }
     double roundToTwoDecimals(double value) {
         return std::round(value * 100.0) / 100.0;

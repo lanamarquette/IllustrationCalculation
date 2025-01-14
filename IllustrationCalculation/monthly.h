@@ -26,8 +26,8 @@ private :
 	void AddPrem();
 	void ApplyMonthlyFee(void);
 	void ApplyPerUnitLoad(void);
-	double ApplyMortalityCharge(void);
-	double ApplyInterest(void);
+	void ApplyMortalityCharge(void);
+	void ApplyInterest(void);
 
 public :
 	double GetAnnualAccountValue(void);

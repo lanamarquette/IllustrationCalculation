@@ -24,12 +24,11 @@ class yearly
 
     double dMortalityCharge;
     double dCorridorFactor;
-    double dInterestRate = .05;
-    double dPctOfPremiumLoad = 0.0;
-    double dSurrenderCharge = 0.0;
-    double dPctOfPremiumLoad = 0.0;
-    double dMonthlyFee = 0.0;
-    double dPerUnitLoad = 0.0;
+    double dInterestRate;
+    double dSurrenderCharge;
+    double dPctOfPremiumLoad;
+    double dMonthlyFee;
+    double dPerUnitLoad;
     string sCompany;
 
 public :

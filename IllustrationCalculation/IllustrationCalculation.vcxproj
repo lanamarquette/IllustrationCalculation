@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="DataFrame.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IllustrationCalculation.h" />
     <ClInclude Include="monthly.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="rates.h" />

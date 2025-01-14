@@ -79,7 +79,7 @@ void monthly::ApplyPerUnitLoad(void)
 	exp_charge = dFaceAmount / 1000.0 * dPerUnitLoad;
 	dAccountValue -= exp_charge;
 }
-double monthly::ApplyMortalityCharge(void)
+void monthly::ApplyMortalityCharge(void)
 {
 	double MonthNAR = 0.0;
 	double mort_charge = 0.0;
@@ -89,7 +89,7 @@ double monthly::ApplyMortalityCharge(void)
 	mort_charge = MonthNAR * dMortalityCharge;
 	dAccountValue -= mort_charge;
 }
-double monthly::ApplyInterest(void)
+void monthly::ApplyInterest(void)
 {
 	dAccountValue *= dMonthlyInterestRate;
 }
